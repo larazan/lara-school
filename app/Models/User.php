@@ -35,10 +35,31 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
+        'mobile',
+        'image',
         'password',
+        'current_address',
+        'permanent_address',
+        'school_id',
+        'gender',
+        'dob',
+        'occupation',
+        'reset_request',
+        'status',
+        'deleted_at'
     ];
+
+    protected static function boot() {
+        parent::boot();
+        static::deleting(static function ($user) { // before delete() method call this
+            if ($user->isForceDeleting() && $user->getRawOriginal('image') && Storage::disk('public')->exists($user->getRawOriginal('image'))) {
+                Storage::disk('public')->delete($user->getRawOriginal('image'));
+            }
+        });
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -68,6 +89,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'full_name',
     ];
 
     public function student() {

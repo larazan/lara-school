@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class SubscriptionFeature extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['subscription_id','feature_id'];
+
+    /**
+     * Get the feature that owns the SubscriptionFeature
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function feature()
+    {
+        return $this->belongsTo(Feature::class);
+    }
 }

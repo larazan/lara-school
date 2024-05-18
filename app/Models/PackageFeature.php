@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class PackageFeature extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['package_id', 'feature_id'];
+
+    /**
+     * Get the feature that owns the PackageFeature
+     *
+     * @return BelongsTo
+     */
+    public function feature() {
+        return $this->belongsTo(Feature::class);
+    }
 }
