@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\DemoMiddleware;
+use App\Http\Middleware\LanguageManager;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -36,12 +38,15 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            DemoMiddleware::class,
+            LanguageManager::class,
         ],
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            DemoMiddleware::class,
         ],
     ];
 
@@ -64,6 +69,15 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'role'               => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission'         => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+        'Role'               => \App\Http\Middleware\CheckRole::class,
+        'checkChild'         => \App\Http\Middleware\CheckChild::class,
+        'language'           => \App\Http\Middleware\LanguageManager::class,
+        'checkStudent'       => \App\Http\Middleware\CheckStudent::class,
+        'checkSchoolStatus'  => \App\Http\Middleware\CheckSchoolStatus::class,
+        'status'             => \App\Http\Middleware\Status::class,
         'auth.admin' => \App\Http\Middleware\Admin::class,
         'auth.operator' => \App\Http\Middleware\Operator::class,
         'auth.wali' => \App\Http\Middleware\Wali::class,
