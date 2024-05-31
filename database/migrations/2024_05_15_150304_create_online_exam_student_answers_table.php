@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('question_id')->references('id')->on('online_exam_question_choices')->onDelete('cascade');
             $table->foreignId('option_id')->references('id')->on('online_exam_question_options')->onDelete('cascade');
             $table->date('submitted_date');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

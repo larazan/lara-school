@@ -13,11 +13,16 @@ class ExpenseCategory extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['name', 'description', 'school_id'];
+    protected $fillable = [
+        'name', 
+        'description', 
+        // 'school_id'
+    ];
 
     public function scopeOwner()
     {
-        return $this->where('school_id',Auth::user()->school_id);
+        // return $this->where('school_id',Auth::user()->school_id);
+        return $this;
     }
 
     /**

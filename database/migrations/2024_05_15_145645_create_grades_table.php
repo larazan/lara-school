@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('starting_range');
             $table->integer('ending_range');
             $table->tinyText('grade');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

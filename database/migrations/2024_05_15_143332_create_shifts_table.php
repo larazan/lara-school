@@ -17,7 +17,7 @@ return new class extends Migration
             $table->time('start_time', 0);
             $table->time('end_time', 0);
             $table->integer('status')->default(1);
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

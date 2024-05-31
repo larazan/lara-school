@@ -16,9 +16,8 @@ class SessionYear extends Model
         'name',
         'start_date',
         'end_date',
-        'school_id',
         'default',
-        'school_id',
+        // 'school_id',
         'include_fee_installments',
         'fee_due_date',
         'fee_due_charges',
@@ -33,25 +32,19 @@ class SessionYear extends Model
     }
 
     public function scopeOwner($query) {
-        if (Auth::user()->school_id) {
-            if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-
-            if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-            return $query->where('school_id', Auth::user()->school_id);
-
+        if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
+            return $query;
         }
 
-        if (!Auth::user()->school_id) {
-            if (Auth::user()->hasRole('Guardian')) {
-                return $query;
-            }
-            if (Auth::user()->hasRole('Super Admin')) {
-                return $query;
-            }
+        if (Auth::user()->hasRole('Student')) {
+            return $query;
+        }
+
+        if (Auth::user()->hasRole('Guardian')) {
+            return $query;
+        }
+
+        if (Auth::user()->hasRole('Super Admin')) {
             return $query;
         }
 

@@ -23,7 +23,7 @@ class OptionalFee extends Model
         'fees_paid_id',
         'date',
         'session_year_id',
-        'school_id',
+        // 'school_id',
         'created_at',
         'updated_at'
     ];
@@ -37,11 +37,11 @@ class OptionalFee extends Model
             }
 
             if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
 
             if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
         }
 

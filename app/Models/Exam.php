@@ -18,7 +18,7 @@ class Exam extends Model
         'description',
         'start_date',
         'end_date',
-        'school_id',
+        // 'school_id',
         'publish'
     ];
 
@@ -49,33 +49,26 @@ class Exam extends Model
     }
     public function scopeOwner($query) {
 
-        if (Auth::user()->school_id) {
-            if (Auth::user()->hasRole('School Admin')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-
-            if(Auth::user()->hasRole('Teacher')){
-                $classTeacherData = ClassTeacher::where('teacher_id',Auth::user()->id)->with('class_section')->get();
-                $classIds = $classTeacherData->pluck('class_id');
-                return $query->whereIn('class_id',$classIds)->where('school_id', Auth::user()->school_id);
-            }
-
-            if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-            return $query->where('school_id', Auth::user()->school_id);
+        if(Auth::user()->hasRole('Teacher')){
+            $classTeacherData = ClassTeacher::where('teacher_id',Auth::user()->id)->with('class_section')->get();
+            $classIds = $classTeacherData->pluck('class_id');
+            return $query->whereIn('class_id',$classIds);
         }
-        if (!Auth::user()->school_id) {
-            if (Auth::user()->hasRole('Super Admin')) {
-                return $query;
-            }
-            if (Auth::user()->hasRole('Guardian')) {
-                $childId = request('child_id');
-                $studentAuth = Students::where('id',$childId)->first();
-                return $query->where('school_id', $studentAuth->school_id);
-            }
+
+        if (Auth::user()->hasRole('Student')) {
             return $query;
         }
+
+        if (Auth::user()->hasRole('Super Admin')) {
+            return $query;
+        }
+        
+        if (Auth::user()->hasRole('Guardian')) {
+            $childId = request('child_id');
+            $studentAuth = Students::where('id',$childId)->first();
+            return $query;
+        }
+
         return $query;
     }
 

@@ -13,7 +13,7 @@ class ClassTeacher extends Model
     protected $fillable = array(
         "class_section_id",
         "teacher_id",
-        "school_id",
+        // "school_id",
     );
 
     protected $appends = ['class_id'];
@@ -25,11 +25,11 @@ class ClassTeacher extends Model
         }
 
         if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

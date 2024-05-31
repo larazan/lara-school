@@ -194,11 +194,9 @@ class User extends Authenticatable
         return $this->hasMany(Students::class, 'guardian_id')->withTrashed();
     }
 
-
     public function teacher() {
         return $this->hasOne(Staff::class);
     }
-
 
     public function fees_paids() {
         return $this->hasMany(FeesPaid::class, 'student_id')->withTrashed();

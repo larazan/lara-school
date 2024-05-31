@@ -22,7 +22,7 @@ return new class extends Migration
             $table->double('amount', 8, 2);
             $table->foreignId('fees_paid_id')->nullable(true)->references('id')->on('fees_paids')->onDelete('cascade');
             $table->date('date');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->enum('status', [1, 2])->comment('1 - succeed 2 - pending');
             $table->timestamps();
             $table->softDeletes();

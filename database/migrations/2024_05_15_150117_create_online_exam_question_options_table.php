@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('question_id')->references('id')->on('online_exam_questions')->onDelete('cascade');
             $table->string('option', 1024);
             $table->tinyInteger('is_answer')->comment('1 - yes, 0 - no');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

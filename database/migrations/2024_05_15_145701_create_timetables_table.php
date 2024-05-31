@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('day', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
             $table->enum('type', ['Lecture', 'Break']);
             $table->foreignId('semester_id')->nullable()->references('id')->on('semesters')->onDelete('cascade');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

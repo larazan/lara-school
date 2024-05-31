@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->foreignId('package_id')->references('id')->on('packages')->onDelete('cascade');
             $table->string('name');
             $table->double('student_charge', 8, 4);
             $table->double('staff_charge', 8, 4);
             $table->date('start_date');
             $table->date('end_date');
-            $table->unique(['school_id', 'start_date'], 'subscription');
+            $table->unique(['start_date'], 'subscription');
             $table->timestamps();
         });
     }

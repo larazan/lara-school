@@ -14,33 +14,25 @@ class Grade extends Model
         'starting_range',
         'ending_range',
         'grade',
-        'school_id',
+        // 'school_id',
         'created_at',
         'updated_at'
     ];
 
     public function scopeOwner($query)
     {
-        if (Auth::user()->school_id) {
-            if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-    
-            if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-            return $query->where('school_id', Auth::user()->school_id);
+        if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
+            return $query;
         }
-        if (!Auth::user()->school_id) {
-            if (Auth::user()->hasRole('Super Admin')) {
-                return $query;
-            }
+
+        if (Auth::user()->hasRole('Student')) {
             return $query;
         }
         
-
+        if (Auth::user()->hasRole('Super Admin')) {
+            return $query;
+        }
         
-
         return $query;
     }
 }

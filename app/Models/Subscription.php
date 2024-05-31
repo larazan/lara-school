@@ -14,7 +14,7 @@ class Subscription extends Model
 
     protected $fillable = [
         'package_id',
-        'school_id',
+        // 'school_id',
         'name',
         'student_charge',
         'staff_charge',
@@ -27,13 +27,13 @@ class Subscription extends Model
 
     public function scopeOwner() {
 
-        if(Auth::user()->school_id){
-            return $this->where('school_id', Auth::user()->school_id);
-        }
+        // if(Auth::user()->school_id){
+        //     return $this->where('school_id', Auth::user()->school_id);
+        // }
 
-        if (!Auth::user()->school_id) {
-            return $this;
-        }
+        // if (!Auth::user()->school_id) {
+        //     return $this;
+        // }
 
         return $this;
     }

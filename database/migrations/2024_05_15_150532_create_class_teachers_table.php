@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('class_section_id')->references('id')->on('class_sections')->onDelete('cascade');
             $table->foreignId('teacher_id')->comment('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->unique(['class_section_id', 'teacher_id'], 'unique_id');
             $table->timestamps();
         });

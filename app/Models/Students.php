@@ -21,7 +21,7 @@ class Students extends Model
         'roll_number',
         'admission_date',
         'guardian_id',
-        'school_id',
+        // 'school_id',
         'session_year_id'
     ];
     protected $appends = ['first_name','last_name','full_name'];
@@ -33,11 +33,11 @@ class Students extends Model
             }
 
             if (Auth::user()->hasRole('School Admin')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
 
             if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
 
             if (Auth::user()->hasRole('Teacher')) {
@@ -47,6 +47,30 @@ class Students extends Model
         }
 
         return $query;
+    }
+
+    public function scopeOfTeacher($query) {
+        $user = Auth::user();
+        if ($user->hasRole('Teacher')) {
+            // for teacher list
+            $class_teacher = $user->teacher->class_sections;
+            $class_section_ids = array();
+            if ($class_teacher->isNotEmpty()) {
+                $class_section_ids = $class_teacher->pluck('class_section_id')->toArray();
+            }
+            $subject_teachers = $user->teacher->subjects;
+            if($subject_teachers){
+                foreach($subject_teachers as $subject_teacher){
+                    $class_section_ids[] = array($subject_teacher->class_section_id);
+                }
+            }
+            return $query->whereIn('class_section_id', $class_section_ids);
+        }else{
+            // for admin list
+            return $query;
+        }
+        //return if doesn't affect above conditions
+        return $query->where('class_section_id',0);
     }
 
     public function announcement() {

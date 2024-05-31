@@ -14,7 +14,7 @@ class AddonSubscription extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'school_id',
+        // 'school_id',
         'feature_id',
         'price',
         'start_date',
@@ -24,9 +24,9 @@ class AddonSubscription extends Model
 
     public function scopeOwner()
     {
-        if (Auth::user()->school_id) {
-            return $this->where('school_id',Auth::user()->school_id);
-        }
+        // if (Auth::user()->school_id) {
+        //     return $this->where('school_id',Auth::user()->school_id);
+        // }
         return $this;
     }
 

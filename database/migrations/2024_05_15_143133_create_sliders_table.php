@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('image', 1024);
             $table->string('link')->nullable();
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

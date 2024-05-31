@@ -16,7 +16,7 @@ class InstallmentFee extends Model
         'due_date',
         'due_charges',
         'session_year_id',
-        'school_id',
+        // 'school_id',
         'created_at',
         'updated_at'
     ];
@@ -38,11 +38,11 @@ class InstallmentFee extends Model
         }
 
         if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

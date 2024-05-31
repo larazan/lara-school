@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('total_selectable_subjects');
             $table->foreignId('class_id')->references('id')->on('classes')->onDelete('cascade');
             $table->foreignId('semester_id')->nullable()->references('id')->on('semesters')->onDelete('cascade');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -21,7 +21,7 @@ class Timetable extends Model
         "day",
         "type",
         "semester_id",
-        "school_id"
+        // "school_id"
     ];
 
     protected $appends = ['title'];
@@ -45,11 +45,11 @@ class Timetable extends Model
     public function scopeOwner($query) {
         $user = Auth::user();
         if ($user->hasRole('School Admin')) {
-            return $this->where('school_id', $user->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 //        if ($user->hasRole('Teacher')) {
 //            $teacher_id = $user->teacher()->pluck('id');

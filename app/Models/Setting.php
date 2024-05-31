@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class SystemSetting extends Model
+class Setting extends Model
 {
     use HasFactory;
 
+    protected $table = 'settings';
     protected $fillable = [
         'name',
         'data',

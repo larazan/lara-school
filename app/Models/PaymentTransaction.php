@@ -10,7 +10,16 @@ class PaymentTransaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'amount', 'payment_gateway', 'order_id', 'payment_id', 'payment_signature', 'payment_status', 'school_id'];
+    protected $fillable = [
+        'user_id', 
+        'amount', 
+        'payment_gateway', 
+        'order_id', 
+        'payment_id', 
+        'payment_signature', 
+        'payment_status', 
+        // 'school_id'
+    ];
 
     public function student() {
         return $this->belongsTo(Students::class, 'student_id')->withTrashed();
@@ -39,11 +48,11 @@ class PaymentTransaction extends Model
             }
 
             if (Auth::user()->hasRole('School Admin')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
 
             if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
         }
 

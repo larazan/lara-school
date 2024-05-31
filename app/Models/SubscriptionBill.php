@@ -10,13 +10,21 @@ class SubscriptionBill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['subscription_id','amount','total_student','total_staff','payment_transaction_id','due_date','school_id'];
+    protected $fillable = [
+        'subscription_id',
+        'amount',
+        'total_student',
+        'total_staff',
+        'payment_transaction_id',
+        'due_date',
+        // 'school_id'
+    ];
 
     public function scopeOwner()
     {
-        if (Auth::user()->school_id) {
-            return $this->where('school_id',Auth::user()->school_id);
-        }
+        // if (Auth::user()->school_id) {
+        //     return $this->where('school_id',Auth::user()->school_id);
+        // }
         return $this;
     }
 

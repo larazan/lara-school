@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('payment_id')->nullable(true);
             $table->string('payment_signature')->nullable(true);
             $table->enum('payment_status', [0, 1, 2])->comment('0 - failed 1 - succeed 2 - pending');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

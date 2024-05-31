@@ -12,7 +12,14 @@ class ClassSection extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['class_id', 'section_id', 'class_teacher_id', 'school_id', 'medium_id'];
+    protected $fillable = [
+        'class_id', 
+        'section_id', 
+        'class_teacher_id', 
+        // 'school_id', 
+        'medium_id'
+    ];
+
     protected $appends = ['name', 'full_name'];
 
     public function class() {
@@ -73,29 +80,25 @@ class ClassSection extends Model
 
 
     public function scopeOwner($query) {
-        if (Auth::user()->school_id) {
-            if (Auth::user()->hasRole('School Admin')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-
-            if (Auth::user()->hasRole('Teacher')) {
-                $subjectTeacher = SubjectTeacher::where('teacher_id', Auth::user()->id)->pluck('class_section_id');
-                $classTeacher = ClassTeacher::where('teacher_id', Auth::user()->id)->pluck('class_section_id');
-                return $query->whereIn('id', array_merge(array_merge($subjectTeacher->toArray(), $classTeacher->toArray())));
-            }
-
-            if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-            return $query->where('school_id', Auth::user()->school_id);
-        }
-        if (!Auth::user()->school_id) {
-            if (Auth::user()->hasRole('Super Admin')) {
-                return $query;
-            }
+        
+        if (Auth::user()->hasRole('School Admin')) {
             return $query;
         }
 
+        if (Auth::user()->hasRole('Teacher')) {
+            $subjectTeacher = SubjectTeacher::where('teacher_id', Auth::user()->id)->pluck('class_section_id');
+            $classTeacher = ClassTeacher::where('teacher_id', Auth::user()->id)->pluck('class_section_id');
+            return $query->whereIn('id', array_merge(array_merge($subjectTeacher->toArray(), $classTeacher->toArray())));
+        }
+
+        if (Auth::user()->hasRole('Student')) {
+            return $query;
+        }
+        
+        if (Auth::user()->hasRole('Super Admin')) {
+            return $query;
+        }
+        
         return $query;
     }
 

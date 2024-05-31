@@ -10,7 +10,12 @@ class AnnouncementClass extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['announcement_id', 'class_section_id', 'school_id', 'class_subject_id'];
+    protected $fillable = [
+        'announcement_id', 
+        'class_section_id', 
+        // 'school_id', 
+        'class_subject_id'
+    ];
 
     public function scopeOwner($query) {
         if (Auth::user()->hasRole('Super Admin')) {
@@ -18,16 +23,15 @@ class AnnouncementClass extends Model
         }
 
         if (Auth::user()->hasRole('School Admin')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
-
         if (Auth::user()->hasRole('Teacher')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

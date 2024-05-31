@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('due_charges')->comment('in percentage (%)');
             $table->foreignId('fees_id')->references('id')->on('fees')->onDelete('cascade');
             $table->foreignId('session_year_id')->references('id')->on('session_years')->onDelete('cascade');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

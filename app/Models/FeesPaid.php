@@ -21,7 +21,7 @@ class FeesPaid extends Model
         'is_used_installment',
         'amount',
         'date',
-        'school_id',
+        // 'school_id',
         'session_year_id'
     ];
 
@@ -75,11 +75,11 @@ class FeesPaid extends Model
             }
 
             if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
 
             if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
         }
 

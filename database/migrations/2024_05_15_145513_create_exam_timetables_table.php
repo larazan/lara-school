@@ -21,7 +21,7 @@ return new class extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->foreignId('session_year_id')->references('id')->on('session_years')->onDelete('cascade');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

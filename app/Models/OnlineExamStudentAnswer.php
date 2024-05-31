@@ -18,7 +18,7 @@ class OnlineExamStudentAnswer extends Model
         'question_id',
         'option_id',
         'submitted_date',
-        'school_id'
+        // 'school_id'
     ];
 
     public function online_exam()
@@ -41,7 +41,7 @@ class OnlineExamStudentAnswer extends Model
             $subjectTeacher = app(SubjectTeacherInterface::class);
             $classSectionId = $subjectTeacher->builder()->pluck('class_section_id');
             $studentId = $student->builder()->whereIn('class_section_id', $classSectionId)->pluck('user_id');
-            return $query->whereIn('student_id',$studentId)->where('school_id', Auth::user()->school_id);
+            return $query->whereIn('student_id',$studentId);
             // return $query->where('school_id', Auth::user()->school_id);
         }
 
@@ -51,11 +51,11 @@ class OnlineExamStudentAnswer extends Model
             $teacherId = Auth::user()->id;
             $classSectionId = $subjectTeacher->builder()->where('teacher_id', $teacherId)->pluck('class_section_id');
             $studentId = $student->builder()->whereIn('class_section_id', $classSectionId)->pluck('user_id');
-            return $query->whereIn('student_id',$studentId)->where('school_id', Auth::user()->school_id);
+            return $query->whereIn('student_id',$studentId);
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

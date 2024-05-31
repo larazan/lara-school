@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('staff_support_schools', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
-            $table->unique(['user_id','school_id'],'user_school');
+            $table->unique(['user_id'],'user_school');
         });
     }
 

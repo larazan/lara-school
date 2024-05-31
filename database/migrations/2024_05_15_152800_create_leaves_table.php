@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('from_date');
             $table->date('to_date');
             $table->integer('status')->default(0)->comment('0 => Pending, 1 => Approved, 2 => Rejected');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->foreignId('session_year_id')->references('id')->on('session_years')->onDelete('cascade');
             $table->timestamps();
         });

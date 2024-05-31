@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('file_thumbnail', 1024)->nullable();
             $table->tinyText('type')->comment('1 = File Upload, 2 = Youtube Link, 3 = Video Upload, 4 = Other Link');
             $table->string('file_url', 1024);
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

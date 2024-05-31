@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('description')->nullable(true);
             $table->double('amount', 8, 2);
             $table->date('date');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->foreignId('session_year_id')->references('id')->on('session_years')->onDelete('cascade');
             $table->timestamps();
             $table->unique(['staff_id','month','year'],'salary_unique_records');

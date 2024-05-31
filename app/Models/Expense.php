@@ -11,16 +11,22 @@ class Expense extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_id', 'ref_no', 'staff_id', 'month', 'year', 'title', 'description', 'amount', 'date', 'school_id', 'session_year_id'];
+    protected $fillable = [
+        'category_id', 
+        'ref_no', 
+        'staff_id', 
+        'month', 
+        'year', 
+        'title', 
+        'description', 
+        'amount', 
+        'date', 
+        // 'school_id', 
+        'session_year_id'
+    ];
 
     public function scopeOwner()
     {
-        if (Auth::user()->school_id) {
-            return $this->where('school_id', Auth::user()->school_id);
-        }
-        if (!Auth::user()->school_id) {
-            return $this;
-        }
         return $this;
     }
 

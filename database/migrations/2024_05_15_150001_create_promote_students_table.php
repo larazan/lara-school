@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('session_year_id')->references('id')->on('session_years')->onDelete('cascade');
             $table->tinyInteger('result')->default(1)->comment('1=>Pass,0=>fail');
             $table->tinyInteger('status')->default(1)->comment('1=>continue,0=>leave');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->unique(['student_id', 'class_section_id', 'session_year_id'], 'unique_columns');
             $table->softDeletes();

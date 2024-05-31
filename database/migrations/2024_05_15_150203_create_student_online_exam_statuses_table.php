@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('student_id')->comment('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('online_exam_id')->references('id')->on('online_exams')->onDelete('cascade');
             $table->tinyInteger('status')->comment('1 - in progress 2 - completed');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

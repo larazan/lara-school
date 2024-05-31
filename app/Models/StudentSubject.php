@@ -25,13 +25,13 @@ class StudentSubject extends Model
     public function scopeOwner()
     {
         if (Auth::user()->hasRole("School Admin")) {
-            return $this->where('school_id',Auth::user()->school_id);
+            return $this;
         }
         if (Auth::user()->hasRole("Teacher")) {
-            return $this->where('school_id',Auth::user()->school_id);
+            return $this;
         }
         if (Auth::user()->hasRole("Student")) {
-            return $this->where('school_id',Auth::user()->school_id);
+            return $this;
         }
         return $this;
     }

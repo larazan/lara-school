@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('class_id')->references('id')->on('classes')->onDelete('cascade');
             $table->foreignId('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->foreignId('medium_id')->references('id')->on('mediums')->onDelete('cascade');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->unique(['class_id', 'section_id', 'medium_id'], 'unique_id');
             $table->timestamps();
             $table->softDeletes();

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('passing_status')->comment('1=Pass, 0=Fail');
             $table->foreignId('session_year_id')->references('id')->on('session_years')->onDelete('cascade');
             $table->tinyText('grade')->nullable();
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

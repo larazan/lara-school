@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('resubmission')->default(0);
             $table->integer('extra_days_for_resubmission')->nullable();
             $table->foreignId('session_year_id')->references('id')->on('session_years')->onDelete('cascade');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->foreignId('created_by')->comment('teacher_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('edited_by')->nullable()->comment('teacher_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

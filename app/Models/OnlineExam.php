@@ -23,7 +23,7 @@ class OnlineExam extends Model
         'start_date',
         'end_date',
         'session_year_id',
-        'school_id'
+        // 'school_id'
     ];
 
     protected $appends = ['class_section_with_medium','subject_with_name','total_marks','exam_status_name'];
@@ -60,26 +60,26 @@ class OnlineExam extends Model
         }
 
         if (Auth::user()->hasRole('School Admin')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Teacher')) {
             $subjectTeacherData = SubjectTeacher::where('teacher_id',Auth::user()->id)->get();
             $classSubjectIds = $subjectTeacherData->pluck('class_subject_id');
-            return $query->whereIn('class_subject_id',$classSubjectIds)->where('school_id', Auth::user()->school_id);
+            return $query->whereIn('class_subject_id',$classSubjectIds);
         }
 
         if (Auth::user()->hasRole('Student')){
             $studentAuth = Auth::user()->student;
             $studentAuth->selectedStudentSubjects();
             $class_subject_ids = $studentAuth->selectedStudentSubjects()->pluck('class_subject_id');
-            return $query->whereIn('class_subject_id',$class_subject_ids)->where('school_id', Auth::user()->school_id);
+            return $query->whereIn('class_subject_id',$class_subject_ids);
         }
 
         if (Auth::user()->hasRole('Guardian')) {
             $childId = request('child_id');
             $studentAuth = Students::where('id',$childId)->first();
-            return $query->where('school_id', $studentAuth->school_id);
+            return $query;
         }
 
         return $query;

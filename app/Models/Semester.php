@@ -16,7 +16,7 @@ class Semester extends Model
         'name',
         'start_month',
         'end_month',
-        'school_id',
+        // 'school_id',
         'created_at',
         'updated_at',
     ];
@@ -25,25 +25,19 @@ class Semester extends Model
 
     public function scopeOwner($query) {
 
-        if (Auth::user()->school_id) {
-            if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-    
-            if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-            return $query->where('school_id', Auth::user()->school_id);
+        if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
+            return $query;
         }
 
-        if (!Auth::user()->school_id) {
-            if (Auth::user()->hasRole('Super Admin')) {
-                return $query;
-            }
-    
-            if (Auth::user()->hasRole('Guardian')) {
-                return $query;
-            }
+        if (Auth::user()->hasRole('Student')) {
+            return $query;
+        }
+
+        if (Auth::user()->hasRole('Super Admin')) {
+            return $query;
+        }
+
+        if (Auth::user()->hasRole('Guardian')) {
             return $query;
         }
 

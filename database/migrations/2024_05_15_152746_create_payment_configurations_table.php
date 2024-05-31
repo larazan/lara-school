@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('secret_key');
             $table->string('webhook_secret_key');
             $table->enum('status', [0, 1])->comment('0 - Off, 1 - On');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

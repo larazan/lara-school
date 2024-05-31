@@ -19,7 +19,7 @@ class Subject extends Model
         'image',
         'medium_id',
         'type',
-        'school_id'
+        // 'school_id'
     ];
     protected $appends = ['name_with_type'];
 
@@ -43,18 +43,15 @@ class Subject extends Model
 
     public function scopeOwner($query) {
 
-        if (Auth::user()->school_id) {
-            if (Auth::user()->hasRole('School Admin')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-            if (Auth::user()->hasRole('Teacher')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-    
-            if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-            return $query->where('school_id', Auth::user()->school_id);
+        if (Auth::user()->hasRole('School Admin')) {
+            return $query;
+        }
+        if (Auth::user()->hasRole('Teacher')) {
+            return $query;
+        }
+
+        if (Auth::user()->hasRole('Student')) {
+            return $query;
         }
 
         return $query;

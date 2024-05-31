@@ -14,7 +14,7 @@ class OnlineExamQuestionChoice extends Model
         'online_exam_id',
         'question_id',
         'marks',
-        'school_id'
+        // 'school_id'
     ];
 
     public function online_exam()
@@ -34,11 +34,11 @@ class OnlineExamQuestionChoice extends Model
         }
 
         if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

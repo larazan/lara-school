@@ -15,7 +15,7 @@ class LessonTopic extends Model
         'name',
         'description',
         'lesson_id',
-        'school_id'
+        // 'school_id'
     ];
 
     protected static function boot() {
@@ -36,16 +36,19 @@ class LessonTopic extends Model
     }
 
     public function scopeOwner($query) {
+        $user = Auth::user();
+
         if (Auth::user()->hasRole('Super Admin')) {
             return $query;
         }
 
         if (Auth::user()->hasRole('School Admin')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Teacher')) {
-            $subject_teacher = SubjectTeacher::select(['class_section_id', 'class_subject_id'])->where(['teacher_id' => Auth::user()->id, 'school_id' => Auth::user()->school_id])->get();
+            $teacher_id = $user->teacher()->select('id')->pluck('id')->first();
+            $subject_teacher = SubjectTeacher::select(['class_section_id', 'class_subject_id'])->where('teacher_id', $teacher_id)->get();
             if ($subject_teacher) {
                 $subject_teacher = $subject_teacher->toArray();
                 $class_section_id = array_column($subject_teacher, 'class_section_id');
@@ -69,7 +72,7 @@ class LessonTopic extends Model
         }*/
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

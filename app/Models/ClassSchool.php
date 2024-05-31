@@ -19,7 +19,7 @@ class ClassSchool extends Model
         'medium_id',
         'stream_id',
         'shift_id',
-        'school_id'
+        // 'school_id'
     ];
     protected $appends = ['full_name'];
 
@@ -107,17 +107,18 @@ class ClassSchool extends Model
             }
 
             if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
-            return $query->where('school_id', Auth::user()->school_id);
+
+            return $query;
         }
+
         if (!Auth::user()->school_id) {
             if (Auth::user()->hasRole('Super Admin')) {
                 return $query;
             }
             return $query;
         }
-
 
         return $query;
     }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->boolean('is_required')->default(0);
             $table->text('default_values')->nullable()->comment('values of radio,checkbox,dropdown,etc');
             $table->text('other')->nullable()->comment('extra HTML attributes');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->integer('rank')->default(0);
             $table->timestamps();
             $table->softDeletes();

@@ -21,12 +21,19 @@ class Fee extends Model
         'due_charges',
         'include_fee_installments',
         'class_id',
-        'school_id',
+        // 'school_id',
         'session_year_id',
         'created_at',
         'updated_at'
     ];
-    protected $appends = ['include_fee_installments','total_compulsory_fees','total_optional_fees','compulsory_fees','optional_fees'];
+
+    protected $appends = [
+        'include_fee_installments',
+        'total_compulsory_fees',
+        'total_optional_fees',
+        'compulsory_fees',
+        'optional_fees'
+    ];
 
     //'compulsory_fees','optional_fees',
 
@@ -142,11 +149,11 @@ class Fee extends Model
             }
 
             if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
 
             if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
         }
 

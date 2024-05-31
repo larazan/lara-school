@@ -19,7 +19,7 @@ class FormField extends Model
         'is_required',
         'default_values',
         'other',
-        'school_id',
+        // 'school_id',
         'rank'
     ];
 
@@ -27,30 +27,24 @@ class FormField extends Model
 
     public function scopeOwner($query) {
 
-        if (Auth::user()->school_id) {
-            if (Auth::user()->hasRole('School Admin')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-
-            if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
-            }
-            return $query->where('school_id', Auth::user()->school_id);
+        if (Auth::user()->hasRole('School Admin')) {
+            return $query;
         }
 
-        if (!Auth::user()->school_id) {
-            if (Auth::user()->hasRole('Super Admin')) {
-                return $query;
-            }
+        if (Auth::user()->hasRole('Student')) {
+            return $query;
+        }
+
+        if (Auth::user()->hasRole('Super Admin')) {
             return $query;
         }
 
         return $query;
     }
 
-    public function school() {
-        return $this->belongsTo(School::class, 'school_id')->withTrashed();
-    }
+    // public function school() {
+    //     return $this->belongsTo(School::class, 'school_id')->withTrashed();
+    // }
 
     /**
      * @param $value

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('elective_subject_group_id')->nullable()->comment('if type=Elective')->references('id')->on('elective_subject_groups')->onDelete('cascade');
             $table->foreignId('semester_id')->nullable()->references('id')->on('semesters')->onDelete('cascade');
             $table->integer('virtual_semester_id')->virtualAs('CASE WHEN semester_id IS NOT NULL THEN semester_id ELSE 0 END');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->unique(['class_id', 'subject_id', 'virtual_semester_id'], 'unique_ids');
             $table->softDeletes();
             $table->timestamps();

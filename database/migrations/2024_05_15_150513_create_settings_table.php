@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_settings', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('data');
-            $table->string('type')->comment('datatype like string , file etc')->nullable();
+            $table->text('type');
+            $table->text('message');
+            // $table->string('type')->comment('datatype like string , file etc')->nullable();
         });
     }
 

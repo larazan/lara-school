@@ -17,7 +17,7 @@ class AssignmentSubmission extends Model
         'feedback',
         'points',
         'status',
-        'school_id',
+        // 'school_id',
     ];
 
     public function file() {
@@ -35,7 +35,7 @@ class AssignmentSubmission extends Model
     public function scopeOwner($query) {
 
         if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Teacher')) {
@@ -49,7 +49,7 @@ class AssignmentSubmission extends Model
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
         return $query;
     }

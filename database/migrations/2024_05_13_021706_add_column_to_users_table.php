@@ -25,7 +25,7 @@ return new class extends Migration
             $table->tinyInteger('status')->after('occupation')->default(1);
             $table->tinyInteger('reset_request')->after('status')->default(0);
             $table->string('fcm_id', 1024)->after('status')->default(null);
-            $table->bigInteger('school_id', 20)->after('fcm_id')->default(null);
+            // $table->bigInteger('school_id', 20)->after('fcm_id')->default(null);
             $table->softDeletes();
         });
     }

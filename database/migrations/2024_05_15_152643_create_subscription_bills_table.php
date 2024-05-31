@@ -20,8 +20,8 @@ return new class extends Migration
             $table->bigInteger('total_staff');
             $table->foreignId('payment_transaction_id')->nullable(true)->references('id')->on('payment_transactions')->onDelete('cascade');
             $table->date('due_date');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
-            $table->unique(['subscription_id', 'school_id'], 'subscription_bill');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            $table->unique(['subscription_id'], 'subscription_bill');
             $table->timestamps();
         });
     }

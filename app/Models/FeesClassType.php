@@ -16,7 +16,7 @@ class FeesClassType extends Model
         'fees_class_id',
         'amount',
         'optional',
-        'school_id',
+        // 'school_id',
         'deleted_at'
     ];
     protected $appends = ['fees_type_name'];
@@ -36,11 +36,11 @@ class FeesClassType extends Model
         }
 
         if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

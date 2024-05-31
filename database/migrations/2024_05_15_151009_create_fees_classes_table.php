@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('fees_type_id')->references('id')->on('fees_types')->onDelete('cascade');
             $table->float('amount');
             $table->enum('choiceable', [0, 1])->comment('0 - no, 1 - yes')->default(0);
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
-            $table->unique(['class_id', 'fees_type_id', 'school_id'], 'unique_ids');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            $table->unique(['class_id', 'fees_type_id'], 'unique_ids');
             $table->timestamps();
             $table->softDeletes();
         });

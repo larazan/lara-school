@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('admission_no', 512);
             $table->integer('roll_number')->nullable();
             $table->date('admission_date');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->foreignId('guardian_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('session_year_id')->references('id')->on('session_years')->onDelete('cascade');
             $table->timestamps();

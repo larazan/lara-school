@@ -10,12 +10,18 @@ class LeaveMaster extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['leaves','holiday','session_year_id','school_id'];
+    protected $fillable = [
+        'leaves',
+        'holiday',
+        'session_year_id',
+        // 'school_id'
+    ];
+
     protected $hidden = ['created_at','updated_at'];
     
     public function scopeOwner()
     {
-        return $this->where('school_id', Auth::user()->school_id);
+        return $this;
     }
 
     /**

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('question', 1024);
             $table->string('image_url', 1024)->nullable();
             $table->string('note', 1024)->nullable();
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->foreignId('last_edited_by')->comment('teacher_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();

@@ -18,7 +18,7 @@ class Attendance extends Model
         'type',
         'date',
         'remark',
-        'school_id'
+        // 'school_id'
     ];
 
     public function user()
@@ -33,11 +33,11 @@ class Attendance extends Model
         }
 
         if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

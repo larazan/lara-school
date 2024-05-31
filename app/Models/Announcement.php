@@ -16,7 +16,7 @@ class Announcement extends Model
         'table_type',
         'table_id',
         'session_year_id',
-        'school_id',
+        // 'school_id',
     ];
 
     public function file() {
@@ -26,7 +26,7 @@ class Announcement extends Model
     public function scopeOwner($query) {
 
         if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if(Auth::user()->hasRole('Teacher')) {
@@ -34,25 +34,19 @@ class Announcement extends Model
             $currentSemester = $cache->getDefaultSemesterData();
             $class_subject_ids = ClassSubject::where(function($query)use($currentSemester){
                 $query->where('semester_id',$currentSemester->id)->orWhereNull('semester_id');
-            })->where(['school_id' => Auth::user()->school_id])->pluck('id');
-            $teacher_class_subjects = SubjectTeacher::where(['teacher_id' => Auth::user()->id, 'school_id' => Auth::user()->school_id])->whereIn('class_subject_id',$class_subject_ids)->pluck('class_subject_id');
-            return $query->whereIn('class_subject_id',$teacher_class_subjects)->where('school_id', Auth::user()->school_id);
+            })->pluck('id');
+            $teacher_class_subjects = SubjectTeacher::where(['teacher_id' => Auth::user()->id])->whereIn('class_subject_id',$class_subject_ids)->pluck('class_subject_id');
+            return $query->whereIn('class_subject_id',$teacher_class_subjects);
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
-        }
-
-        if (Auth::user()->school_id) {
-            return $query->where('school_id', Auth::user()->school_id);
-        }
-
-        if (!Auth::user()->school_id) {
-            if (Auth::user()->hasRole('Super Admin')) {
-                return $query;
-            }
             return $query;
         }
+
+        if (Auth::user()->hasRole('Super Admin')) {
+            return $query;
+        }
+           
         return $query;
     }
 

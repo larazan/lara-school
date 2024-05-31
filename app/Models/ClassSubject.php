@@ -11,7 +11,14 @@ class ClassSubject extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['class_id', 'subject_id', 'type', 'semester_id' ,'elective_subject_group_id', 'school_id'];
+    protected $fillable = [
+        'class_id', 
+        'subject_id', 
+        'type', '
+        semester_id', 
+        'elective_subject_group_id', 
+        // 'school_id'
+    ];
 
     protected $appends = ['subject_with_name'];
 
@@ -60,11 +67,11 @@ class ClassSubject extends Model
         }
 
         if (Auth::user()->hasRole('School Admin')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

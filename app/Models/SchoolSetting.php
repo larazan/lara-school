@@ -15,7 +15,7 @@ class SchoolSetting extends Model
         'name',
         'data',
         'type',
-        'school_id'
+        // 'school_id'
     ];
 
     public $timestamps = false;
@@ -44,11 +44,11 @@ class SchoolSetting extends Model
         }
 
         if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

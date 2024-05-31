@@ -25,7 +25,7 @@ class LeaveDetail extends Model
 
     public function scopeOwner()
     {
-        return $this->where('school_id', Auth::user()->school_id);
+        return $this;
     }
 
     public function getLeaveDateAttribute()

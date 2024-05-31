@@ -20,7 +20,7 @@ return new class extends Migration
             $table->tinyInteger('type')->comment('0=Absent, 1=Present');
             $table->date('date');
             $table->string('remark', 512);
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

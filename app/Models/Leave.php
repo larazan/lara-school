@@ -11,11 +11,19 @@ class Leave extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','reason','from_date','to_date','status','school_id','leave_master_id'];
+    protected $fillable = [
+        'user_id',
+        'reason',
+        'from_date',
+        'to_date',
+        'status',
+        // 'school_id',
+        'leave_master_id'
+    ];
 
     public function scopeOwner()
     {
-        return $this->where('school_id', Auth::user()->school_id);
+        return $this;
     }
 
     /**

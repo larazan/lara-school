@@ -15,7 +15,7 @@ class ElectiveSubjectGroup extends Model
         'total_selectable_subjects',
         'class_id',
         'semester_id',
-        'school_id'
+        // 'school_id'
     ];
 
     public function subjects()
@@ -31,11 +31,11 @@ class ElectiveSubjectGroup extends Model
         }
 
         if (Auth::user()->hasRole('School Admin')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

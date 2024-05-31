@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('medium_id')->references('id')->on('mediums')->onDelete('cascade');
             $table->foreignId('shift_id')->nullable()->references('id')->on('shifts')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('stream_id')->nullable()->references('id')->on('streams')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

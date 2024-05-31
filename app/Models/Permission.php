@@ -24,7 +24,7 @@ class Permission extends Model
                     // Show only permissions which are not assigned to Super Admin
                     $builder->whereHas('roles', function ($q) {
                         $q->where('name', '!=', 'Super Admin')->where(function ($q) {
-                            $q->where('school_id', Auth::user()->school_id)->orWhere('name', 'School Admin');
+                            $q->where('name', 'School Admin');
                         });
                     });
                 }

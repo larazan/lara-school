@@ -16,7 +16,7 @@ class PromoteStudent extends Model
         'session_year_id',
         'result',
         'status',
-        'school_id',
+        // 'school_id',
     ];
 
     public function student() {
@@ -30,11 +30,11 @@ class PromoteStudent extends Model
         }
 
         if (Auth::user()->hasRole('School Admin')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

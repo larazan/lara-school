@@ -18,7 +18,7 @@ class PaymentConfiguration extends Model
         'status',
         'currency_code',
         'currency_symbol',
-        'school_id',
+        // 'school_id',
     ];
 
     public function scopeOwner($query)
@@ -29,18 +29,18 @@ class PaymentConfiguration extends Model
             }
 
             if (Auth::user()->hasRole('School Admin')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
 
             if (Auth::user()->hasRole('Student')) {
-                return $query->where('school_id', Auth::user()->school_id);
+                return $query;
             }
 
             if (Auth::user()->hasRole('Guardian')) {
                 if(request('child_id')){
-                $childId = request('child_id');
-                $studentAuth = Students::where('id',$childId)->first();
-                return $query->where('school_id', $studentAuth->school_id);
+                    $childId = request('child_id');
+                    $studentAuth = Students::where('id',$childId)->first();
+                    return $query;
                 }
                 return $query;
             }

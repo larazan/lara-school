@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image', 512);
             $table->foreignId('medium_id')->references('id')->on('mediums')->onDelete('cascade');
             $table->string('type', 64)->comment('Theory / Practical');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

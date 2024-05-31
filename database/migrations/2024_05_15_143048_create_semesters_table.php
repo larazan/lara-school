@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->tinyInteger('start_month');
             $table->tinyInteger('end_month');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

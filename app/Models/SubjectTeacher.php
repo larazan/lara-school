@@ -15,7 +15,7 @@ class SubjectTeacher extends Model
         'subject_id',
         'teacher_id',
         'class_subject_id',
-        'school_id',
+        // 'school_id',
     ];
     protected $appends = ['subject_with_name'];
 
@@ -37,7 +37,7 @@ class SubjectTeacher extends Model
 
     public function scopeOwner($query) {
         if (Auth::user()->hasRole('School Admin')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Teacher')) {
@@ -53,9 +53,22 @@ class SubjectTeacher extends Model
             /*Sagar Sir's Code*/
             return $query->whereIn('class_subject_id', $class_subject_ids)->where(['teacher_id' => Auth::user()->id, 'school_id' => Auth::user()->school_id]);
         }
+
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
+
+        return $query;
+    }
+
+    public function scopeSubjectTeacher($query, $class_section_id = null)
+    {
+        $user = Auth::user();
+        if ($user->hasRole('Teacher')) {
+            $teacher_id = $user->teacher()->pluck('id');
+            return $query->whereIn('teacher_id', $teacher_id);
+        }
+        
         return $query;
     }
 

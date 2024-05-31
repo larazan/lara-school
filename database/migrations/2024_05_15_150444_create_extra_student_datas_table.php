@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('student_id')->comment('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('form_field_id')->references('id')->on('form_fields')->onDelete('cascade');
             $table->text('data')->nullable();
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

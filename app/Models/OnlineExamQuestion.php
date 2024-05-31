@@ -19,9 +19,12 @@ class OnlineExamQuestion extends Model
         'image_url',
         'note',
         'last_edited_by',
-        'school_id'
+        // 'school_id'
     ];
-    protected $appends = ['class_section_with_medium','subject_with_name'];
+    protected $appends = [
+        'class_section_with_medium',
+        'subject_with_name'
+    ];
 
 
     protected static function boot() {
@@ -63,18 +66,17 @@ class OnlineExamQuestion extends Model
         }
 
         if (Auth::user()->hasRole('School Admin')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if(Auth::user()->hasRole('Teacher')){
             $subjectTeacherData = SubjectTeacher::where('teacher_id',Auth::user()->id)->get();
             $classSubjectIds = $subjectTeacherData->pluck('class_subject_id');
-            return $query->whereIn('class_subject_id',$classSubjectIds)->where('school_id', Auth::user()->school_id);
+            return $query->whereIn('class_subject_id',$classSubjectIds);
         }
 
-
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

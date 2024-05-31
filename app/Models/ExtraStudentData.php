@@ -19,22 +19,23 @@ class ExtraStudentData extends Model
         'student_id',
         'form_field_id',
         'data',
-        'school_id',
+        // 'school_id',
     ];
 
     protected $appends = ['file_url'];
 
     public function scopeOwner($query) {
+        
         if (Auth::user()->hasRole('Super Admin')) {
             return $query;
         }
 
         if (Auth::user()->hasRole('School Admin')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;

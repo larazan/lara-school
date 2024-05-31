@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description', 1024)->nullable();
             $table->foreignId('class_section_id')->references('id')->on('class_sections')->onDelete('cascade');
             $table->foreignId('class_subject_id')->references('id')->on('class_subjects')->onDelete('cascade');
-            $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
+            // $table->foreignId('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

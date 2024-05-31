@@ -10,7 +10,10 @@ class StaffSupportSchool extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','school_id'];
+    protected $fillable = [
+        'user_id',
+        // 'school_id'
+    ];
 
     /**
      * Get the school that owns the StaffSupportSchool
@@ -24,9 +27,9 @@ class StaffSupportSchool extends Model
 
     public function scopeOwner()
     {
-        if (Auth::user()->school_id) {
-            return $this->where('school_id',Auth::user()->school_id);
-        }
+        // if (Auth::user()->school_id) {
+        //     return $this->where('school_id',Auth::user()->school_id);
+        // }
         return $this;
     }
 

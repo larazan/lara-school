@@ -15,7 +15,7 @@ class FeesType extends Model
     protected $fillable = [
         'name',
         'description',
-        'school_id',
+        // 'school_id',
     ];
 
 
@@ -30,11 +30,11 @@ class FeesType extends Model
         }
 
         if (Auth::user()->hasRole('School Admin') || Auth::user()->hasRole('Teacher')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         if (Auth::user()->hasRole('Student')) {
-            return $query->where('school_id', Auth::user()->school_id);
+            return $query;
         }
 
         return $query;
